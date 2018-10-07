@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/index.css">
+    <title>Área de Pensamientos</title>
+
+  </head>
+  <body>
+    <!-- Header -->
+    <section id="header">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#">
+            <img src="/logo.png" alt="Logo Eneagrama">
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </nav>
+      </div>
+    </section>
+    <!-- /header -->
+
+
+    <!-- Main -->
+
+    <section id="main">
+      <div class="container">
+        <div class="row">
+          <div class="col text-center">
+            <h1 class="display-4">Área de <span id="area"></span></h1>
+          </div>
+        </div>
+        <!-- /test personalidad 5: El Pensador -->
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">Sí/No</th>
+                      <th scope="col">Enunciado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">
+                        <select class="form-control" id="inputRespuesta">
+                            <option value=0>No</option>
+                            <option value=1>Sí</option>
+                        </select>
+                      </th>
+                      <td>
+                        <p id="pregunta"></p>
+                      </td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+
+          <div class="row">
+            <div class="col text-center">
+              <a class="btn btn-success" id="siguiente" role="button">Siguiente</a>
+            </div>
+          </div>
+    </div>
+
+    </section>
+
+        <!--  -->
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+        <script>
+            $('#checkbox')
+            .hide()  // Hide it initially
+            .ajaxStart(function() {
+                $(this).hide();
+            })
+            .ajaxStop(function() {
+                $(this).show();
+            });
+            
+            var idPregunta = GetURLParameter('id_pregunta');
+            var idUser = GetURLParameter('id_user');
+            function GetURLParameter(sParam)
+            {
+                var sPageURL = window.location.search.substring(1);
+                var sURLVariables = sPageURL.split('&');
+                for (var i = 0; i < sURLVariables.length; i++)
+                {
+                    var sParameterName = sURLVariables[i].split('=');
+                    if (sParameterName[0] == sParam)
+                    {
+                    return sParameterName[1];
+                    }
+                }
+            }
+            $(document).ready(function() {
+                
+                $.ajax({
+                    url: "http://localhost:3333/get/pregunta/" + idPregunta,	
+                    type: 'GET',
+                    dataType: 'JSON',
+                    success: function (data)
+                    {
+                        console.log("pregunta", data);
+                        buildPage(data);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error)
+                        swal("Error", "Por favor, intenta de nuevo.", "error");
+                    }
+                });
+            });
+
+            function buildPage(data){
+                $("#area").html(data.area);
+                $("#pregunta").html(data.pregunta);
+            }
+
+            $("#siguiente").click(function(){
+
+                var respuesta = {
+                    "id_pregunta": idPregunta,
+                    "id_user": idUser,
+                    "valor": $("#inputRespuesta").val(),
+                }
+                registerRespuesta(respuesta);
+            });
+
+            function registerRespuesta(respuesta)
+            {
+                $.ajax({
+                url: "http://localhost:3333/save/respuesta",	
+                type: 'POST',
+                data: respuesta,
+                dataType: 'JSON',
+                headers: {
+                    "accept": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Credentials": "true"
+                },
+                success: function (data)
+                {
+                    console.log("respuesta", data);
+                    siguiente()
+                },
+                error: function(xhr, status, error) {
+                    console.log(error)
+                    swal("Error", "Por favor, intenta de nuevo.", "error");
+                }
+                });
+            }
+
+            function siguiente()
+            {
+                var idUser = GetURLParameter('id_user');
+                window.location.href = "/start?id_user="+ idUser + "&id_pregunta=" + (parseFloat(idPregunta)+1);
+            }
+        </script>
+
+      </body>
+    </html>

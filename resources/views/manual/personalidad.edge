@@ -279,7 +279,7 @@
         registerUser(user)
         //window.location.href = "/manual/start";
       });
-
+      var userGlobal;
       function registerUser(user)
       {
         $.ajax({
@@ -295,8 +295,9 @@
           success: function (data)
           {
               console.log("user", data);
+              userGlobal = data;
               swal("Bien", "Has sido registrado", "success");
-              window.location.href = "/manual/start";
+              window.location.href = "/manual/start/?id_user=" + data.user.id;
           },
           error: function(xhr, status, error) {
             console.log(error)
