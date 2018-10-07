@@ -20,6 +20,7 @@ Route.on('/').render('home')
 
 Route.on('/manual/personalidad').render('manual.personalidad')
 Route.on('/manual/start').render('manual.start')
+Route.on('/automatico/start').render('automatico.start')
 
 Route.on('/start').render('manual.test')
 Route.on('/testFinalizado').render('manual.testFinalizado')
