@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+    <style media="screen">
+      .bootstrap-select .btn{
+        display: none !important;
+        border-color: white !important;
+      }
+    </style>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/index.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+    <!-- materialize -->
+    <!-- <link  href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+    <title>Mi Personalidad</title>
+  </head>
+  <body id="body">
+    <!-- Header -->
+    <section id="header">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#">
+            <img src="/logo.png" alt="Logo Eneagrama">
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="index.html">Inicio <span class="sr-only">(current)</span></a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </section>
+    <!-- /header -->
+
+
+    <!-- Main -->
+    <section id="main">
+      <div class="container pt-6">
+        <form>
+          <div class="form-group col-6 col-md-2 pl-0">
+            <label for="inputCedula">Cédula</label>
+            <input type="number" min="1" step="1" class="form-control" id="inputCedula" placeholder="00000000">
+          </div>
+        </form>
+
+        <form>
+          <div class="form-row pt-2">
+            <div class="form-group col-md-4">
+              <label for="inputGenero">Género</label>
+              <select class="form-control" id="inputGenero">
+                <option value="F">Femenino</option>
+                <option value="M">Masculino</option>
+              </select>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Fecha de Nacimiento</label>
+                <div class="input-group date" data-provide="datepicker">
+                  <input id="inputFechaNacimiento" type="text" class="form-control">
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                  </div>
+                </div>
+            </div>
+            <form>
+                <div class="col-md-4 pl-0">
+                  <label>Edad</label>
+                  <input id="inputEdad" class="form-control" placeholder="00">
+                </div>
+              </form>
+          </div>
+
+          <div class="form-row pt-2">
+            <div class="form-group col-md-6">
+              <label for="inputProfesion">Profesión</label>
+              <input type="text" class="form-control" id="inputProfesion" placeholder="Profesión">
+            </div>
+            <div class="form-group col-md-6">
+              <label>¿Actualmente está casado?</label>
+              <select class="form-control" id="inputIsCasado">
+                <option value=0>No</option>
+                <option value=1>Si</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row pt-4">
+            <div class="form-group col-md-3">
+              <label>¿Actualmente trabaja?</label>
+              <select class="form-control" id="inputIsTrabaja">
+                <option value=0>No</option>
+                <option value=1>Sí</option>
+              </select>
+            </div>
+            <div class="form-group col-md-3">
+              <label>¿Vive con sus padres?</label>
+              <select class="form-control" id="inputIsViveConPadres">
+                <option value=0>No</option>
+                <option value=1>Sí</option>
+              </select>
+            </div>
+            <div class="form-group col-md-3" id="haveHermanos">
+                <label>¿Tiene hermanos?</label>
+                <select class="form-control" id="inputHaveHermanos">
+                  <option value=0>No</option>
+                  <option value=1>Sí</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label for="inputCedula">Cantidad de hermanos</label>
+                <input type="number" min="1" step="1" class="form-control" id="inputCantidadHermanos" placeholder="0">
+            </div>
+          </div>
+
+
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="country">País</label>
+              <select id="country" class="form-control"></select>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="region">Estado</label>
+              <select id="region" class="form-control"></select>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="city">Ciudad</label>
+                <select id="city" class="form-control"></select>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary" id="seguir">Seguir</button>
+        </form>
+      </div>
+    </section>
+
+
+
+    <!-- /Main  -->
+
+
+    <!-- Para la lista de paises, estados y ciudades -->
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $("#inputEdad").prop("disabled", true);
+      });
+     	//-------------------------------SELECT CASCADING-------------------------//
+      	var currentCities=[];
+    // This is a demo API key that can only be used for a short period of time, and will be unavailable soon. You should rather request your API key (free)  from http://battuta.medunes.net/
+    var BATTUTA_KEY="40e3a9869ac2f0c387f50680f51f4492"
+      	// Populate country select box from battuta API
+    	url="https://battuta.medunes.net/api/country/all/?key="+BATTUTA_KEY+"&callback=?";
+      	$.getJSON(url,function(countries)
+      	{
+      		console.log(countries);
+          $("#country").selectpicker();
+    	    //loop through countries..
+    	    $.each(countries,function(key,country)
+    	    {
+    	        $("<option></option>")
+    	         				.attr("value",country.code)
+    	         				.append(country.name)
+    	                     	.appendTo($("#country"));
+
+    	    });
+    	    // trigger "change" to fire the #state section update process
+    	    $("#country").selectpicker('refresh');
+    	    $("#country").trigger("change");
+      	});
+
+        $("#country").on("change",function()
+      	{
+      		countryCode=$("#country").val();
+      		// Populate country select box from battuta API
+    	    url="https://battuta.medunes.net/api/region/"
+    	    +countryCode
+    	    +"/all/?key="+BATTUTA_KEY+"&callback=?";
+
+      		$.getJSON(url,function(regions)
+      		{
+      			$("#region option").remove();
+    		    //loop through regions..
+    		    $.each(regions,function(key,region)
+    		    {
+    		        $("<option></option>")
+    		         				.attr("value",region.region)
+    		         				.append(region.region)
+    		                     	.appendTo($("#region"));
+    		    });
+    		    // trigger "change" to fire the #state section update process
+    	    	$("#region").selectpicker('update');
+    	    	$("#region").trigger("change");
+
+    	    });
+      	});
+      	$("#region").on("change",function()
+      	{
+      		// Populate country select box from battuta API
+      		countryCode=$("#country").val();
+    		  region=$("#region").val();
+    	    url="https://battuta.medunes.net/api/city/"
+    	    +countryCode
+    	    +"/search/?region="
+    	    +region
+    	    +"&key="
+    	    +BATTUTA_KEY
+    	    +"&callback=?";
+
+      		$.getJSON(url,function(cities)
+      		{
+      			currentCities=cities;
+            	var i=0;
+            	$("#city option").remove();
+
+    		    //loop through regions..
+    		    $.each(cities,function(key,city)
+    		    {
+    		        $("<option></option>")
+    		         				.attr("value",i++)
+    		         				.append(city.city)
+    		                .appendTo($("#city"));
+    		    });
+    		    // trigger "change" to fire the #state section update process
+    	    	$("#city").selectpicker('update');
+    	    	$("#city").trigger("change");
+
+    	    });
+
+      	});
+      	$("#city").on("change",function()
+      	{
+          currentIndex=$("#city").val();
+          currentCity=currentCities[currentIndex];
+          city=currentCity.city;
+          region=currentCity.region;
+          country=currentCity.country;
+        });
+       //-------------------------------END OF SELECT CASCADING-------------------------//
+      $("#seguir").click(function() 
+      {
+        var user = {
+          "cedula": $("#inputCedula").val(),
+          "genero": $("#inputGenero").val(),
+          "fecha_nacimiento": $("#inputFechaNacimiento").val(),
+          "edad": $("#inputEdad").val(),
+          "pais": "Venezuela",
+          "estado_nacimiento": "Zulia",
+          "ciudad_nacimiento": "Maracaibo",
+          "profesion": "abogado",
+          "is_casado": $("#inputIsCasado").val(),
+          "is_trabaja": $("#inputIsTrabaja").val(),
+          "is_vive_padres": $("#inputIsViveConPadres").val(),
+          "have_hermanos": $("#inputHaveHermanos").val(),
+          "cantidad_hermanos": $("#inputCantidadHermanos").val()
+        }
+        console.log('holi', user);
+        registerUser(user)
+        //window.location.href = "/manual/start";
+      });
+
+      function registerUser(user)
+      {
+        $.ajax({
+          url: "http://localhost:3333/user/register",	
+          type: 'POST',
+          data: user,
+          dataType: 'JSON',
+          headers: {
+            "accept": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true"
+          },
+          success: function (data)
+          {
+              console.log("user", data);
+              swal("Bien", "Has sido registrado", "success");
+              window.location.href = "/manual/start";
+          },
+          error: function(xhr, status, error) {
+            console.log(error)
+            swal("Error", "Por favor, completa todos los campos.", "error");
+          }
+        });
+      }
+
+      function calculateAge(birthday) { // birthday is a date
+        var ageDifMs = Date.now() - birthday.getTime();
+        var ageDate = new Date(ageDifMs); // miliseconds from epoch
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+      }
+
+      $("#inputFechaNacimiento").change(function() {
+        birthday = new Date($("#inputFechaNacimiento").val());
+        var age = calculateAge(birthday)
+        if(age) {
+          $("#inputEdad").val(age);
+        }
+      }).change(); 
+
+      function noNumbers(id) {
+        $(id).keydown(function (e) {
+          if (e.shiftKey || e.ctrlKey || e.altKey) {
+            e.preventDefault();
+          } else {
+            var key = e.keyCode;
+            if (!((key == 8) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
+              e.preventDefault(); 
+            }
+          }
+        });
+      }
+
+    </script>
+
+
+    <!-- Para la lista de paises, estados y ciudades -->
+    <!-- Calendario -->
+
+    <script>
+      $(document).ready(function(){
+          var date_input=$('input[name="date"]'); //our date input has the name "date"
+          var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+          date_input.datepicker({
+              format: 'dd/mm/yyyy',
+              container: container,
+              todayHighlight: true,
+              autoclose: true,
+          })
+      })
+    </script>
+
+    <!-- / Calendario -->
+
+
+    <!--  Validacion hermanos -->
+    <script>
+
+      $("#inputHaveHermanos").change(function() {
+        var disabled = (this.value == 0);
+        $("#inputCantidadHermanos").prop("disabled", disabled);
+      }).change(); 
+    </script>
+
+    <!-- / Validacion hermanos -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	  <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  </body>
+</html>
