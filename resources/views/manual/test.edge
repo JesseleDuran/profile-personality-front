@@ -7,7 +7,6 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="/index.css">
     <title>Área de Pensamientos</title>
 
   </head>
@@ -109,21 +108,25 @@
                 }
             }
             $(document).ready(function() {
+                if(idPregunta <= 82) {
+                    $.ajax({
+                        url: "http://localhost:3333/get/pregunta/" + idPregunta,	
+                        type: 'GET',
+                        dataType: 'JSON',
+                        success: function (data)
+                        {
+                            console.log("pregunta", data);
+                            buildPage(data);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(error)
+                            swal("Error", "Por favor, intenta de nuevo.", "error");
+                        }
+                    });
+                } else {
+                    window.location.href = "/testFinalizado?id_user="+ idUser;
+                }
                 
-                $.ajax({
-                    url: "http://localhost:3333/get/pregunta/" + idPregunta,	
-                    type: 'GET',
-                    dataType: 'JSON',
-                    success: function (data)
-                    {
-                        console.log("pregunta", data);
-                        buildPage(data);
-                    },
-                    error: function(xhr, status, error) {
-                        console.log(error)
-                        swal("Error", "Por favor, intenta de nuevo.", "error");
-                    }
-                });
             });
 
             function buildPage(data){
