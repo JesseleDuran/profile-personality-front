@@ -34,3 +34,5 @@ Route.on('/resultado/leal').render('manual.resultados.leal')
 Route.on('/resultado/pacifico').render('manual.resultados.pacificador')
 Route.on('/resultado/reformador').render('manual.resultados.reformador')
 Route.on('/resultado/triunfador').render('manual.resultados.triunfador')
+
+Route.on('/resultado/simulador').render('automatico.estadisticas')
