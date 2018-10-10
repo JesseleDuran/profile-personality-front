@@ -96,7 +96,27 @@
           <div class="form-row pt-2">
             <div class="form-group col-md-6">
               <label for="inputProfesion">Profesión</label>
-              <input type="text" class="form-control" id="inputProfesion" placeholder="Profesión">
+              <select class="form-control" id="inputProfesion">
+                  <option value="Actor/Actriz">Actor / Actriz</option>
+                  <option value="Arquitecto">Arquitecto</option>
+                  <option value="Albañil">Albañil</option>
+                  <option value="Empresario">Empresario</option>
+                  <option value="Dentista">Dentista</option>
+                  <option value="Médico/a">Médico/a</option>
+                  <option value="Electricista">Electricista</option>
+                  <option value="Ingeniero/a">Ingeniero/a</option>
+                  <option value="Peluquero/a">Peluquero/a</option>
+                  <option value="Periodista">Periodista</option>
+                  <option value="Ama de casa">Ama de casa</option>
+                  <option value="Abogado/a">Abogado/a</option>
+                  <option value="Mecánico/a">Mecánico/a</option>
+                  <option value="Enfermero/a">Enfermero/a</option>
+                  <option value="Político">Político</option>
+                  <option value="Profesor/a">Profesor/a</option>
+                  <option value="Programador">Programador</option>
+                  <option value="Deportista">Deportista</option>
+                  <option value="Escritor">Escritor</option>
+                </select>
             </div>
             <div class="form-group col-md-6">
               <label>¿Actualmente está casado?</label>
@@ -154,6 +174,21 @@
           <button type="button" class="btn btn-primary" id="seguir">Seguir</button>
         </form>
       </div>
+
+      <div class="container" style="width:600px;">
+          <select name="country" id="country" class="form-control input-lg">
+           <option value="">Select country</option>
+          </select>
+          <br />
+          <select name="state" id="state" class="form-control input-lg">
+           <option value="">Select state</option>
+          </select>
+          <br />
+          <select name="city" id="city" class="form-control input-lg">
+           <option value="">Select city</option>
+          </select>
+         </div>
+
     </section>
 
 
@@ -268,7 +303,7 @@
           "pais": "Venezuela",
           "estado_nacimiento": "Zulia",
           "ciudad_nacimiento": "Maracaibo",
-          "profesion": "abogado",
+          "profesion": $("#inputProfesion").val(),
           "is_casado": $("#inputIsCasado").val(),
           "is_trabaja": $("#inputIsTrabaja").val(),
           "is_vive_padres": $("#inputIsViveConPadres").val(),
@@ -345,6 +380,56 @@
 
     <!-- Para la lista de paises, estados y ciudades -->
     <!-- Calendario -->
+    <script>
+      $(document).ready(function(){
+      load_json_data('country');
+
+      function load_json_data(id, parent_id)
+      {
+        var html_code = '';
+        $.getJSON('country_state_city.json', function(data) {
+          console.log(data);
+          html_code += '<option value="">Select '+id+'</option>';
+          $.each(data, function(key, value){
+            if(id == 'country')
+            {
+              if(value.parent_id == '0')
+              {
+                html_code += '<option value="'+value.id+'">'+value.name+'</option>';
+              }
+            } else {
+              if(value.parent_id == parent_id)
+                {
+                  html_code += '<option value="'+value.id+'">'+value.name+'</option>';
+                }
+              }
+          });
+        $('#'+id).html(html_code);
+        });
+      }
+
+      $(document).on('change', '#country', function(){
+        var country_id = $(this).val();
+        if(country_id != '')
+        {
+          load_json_data('state', country_id);
+        } else {
+          $('#state').html('<option value="">Select state</option>');
+          $('#city').html('<option value="">Select city</option>');
+        }
+      });
+        $(document).on('change', '#state', function(){
+          var state_id = $(this).val();
+          if(state_id != '')
+          {
+            load_json_data('city', state_id);
+          }
+          else {
+            $('#city').html('<option value="">Select city</option>');
+          }
+        });
+      });
+    </script>
 
     <script>
       $(document).ready(function(){
