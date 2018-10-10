@@ -36,3 +36,5 @@ Route.on('/resultado/reformador').render('manual.resultados.reformador')
 Route.on('/resultado/triunfador').render('manual.resultados.triunfador')
 
 Route.on('/resultado/simulador').render('automatico.estadisticas')
+
+Route.on('/ver/miResultado').render('manual.ver-mi-resultado')

@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="/index.css">
-    <title>Simulador</title>
+    <title>Ver mi resultado</title>
     <style media="screen">
         html, body {
         overflow: hidden;
@@ -151,7 +151,7 @@
         <div class="row">
           <div class="col-4"></div>
           <div class="col-4">
-            <h1>Simulador</h1>
+            <h1>Ver mi resultado</h1>
           </div>
           <div class="col-4"></div>
         </div>
@@ -160,11 +160,11 @@
           <div class="col-4">
             <form>
               <div class="form-group">
-                <label id="cantidadTitle" for="formGroupExampleInput">Ingrese la cantidad de registros a generar</label>
-                <input type="number" min="1" step="1" class="form-control" id="cantidad" placeholder="Ingrese un número.">
+                <label id="cantidadTitle" for="formGroupExampleInput">Ingrese su cédula:</label>
+                <input type="number" min="1" step="1" class="form-control" id="inputCedula" placeholder="00000000">
               </div>
             </form>
-            <button type="button" class="btn btn-primary" id="generarButton">Generar</button>
+            <button type="button" class="btn btn-primary" id="generarButton">Ver Resultado</button>
           </div>
           <div class="col-4"></div>
         </div>
@@ -205,37 +205,37 @@
         function loading(){
           $('#circle').show();
           $('#cantidadTitle').hide();
-          $('#cantidad').hide();
+          $('#inputCedula').hide();
           $('#generarButton').hide();
         }
 
         function stoploading(){
           $('#circle').hide();
           $('#cantidadTitle').show();
-          $('#cantidad').show();
+          $('#inputCedula').show();
           $('#generarButton').show();
         }        
 
         $("#generarButton").click(function(){
-            var cantidad= $("#cantidad").val();
-            console.log('has hecho click', cantidad);
-            startSimulator(cantidad);
+            var cedula= $("#inputCedula").val();
+            console.log('has hecho click', cedula);
+            startSimulator(cedula);
         });
 
-        function startSimulator(cantidad)
+        function startSimulator(cedula)
         {
             $.ajax({
-                url: "http://localhost:3333/start/simulator/" + cantidad,	
+                url: "http://localhost:3333/user/done/" + cedula,	
                 type: 'GET',
                 dataType: 'JSON',
                 success: function (data)
                 {
                     console.log("respuesta", data);
-                    window.location.href = "/resultado/simulador";
+                    window.location.href = "/testFinalizado?id_user="+ data.user.id;
                 },
                 error: function(xhr, status, error) {
                     console.log(error)
-                    swal("Error", "Por favor, ingrese una cantidad", "error");
+                    sweetAlert("Error", "Su usuario no se encuentra.", "error");
                 }
             });
         }

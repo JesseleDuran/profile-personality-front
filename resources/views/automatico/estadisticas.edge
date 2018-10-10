@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jQuery-QueryBuilder/dist/css/query-builder.default.min.css">
     <link rel="stylesheet" href="/index.css">
     <title>Estadísticas</title>
 
@@ -19,14 +21,6 @@
           <a class="navbar-brand" href="/">
             <img src="/logo.png" alt="Logo Eneagrama">
           </a>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
-              </li>
-            </ul>
-          </div>
         </nav>
       </div>
     </section>
@@ -53,10 +47,15 @@
             </div>
           </div>
 
+        <div id="builder-widgets"></div>
+        <button type="button" class="btn btn-primary" id="get">Get</button>
+        <button type="button" class="btn btn-primary" id="set">Set</button>
+        <button type="button" class="btn btn-primary" id="reset">Reset</button>
+
         </div>
         <div class="row">
           <div class="col-4">
-            <a href="#"><button type="button" class="btn btn-outline-dark">Ver en Excel</button></a>
+            <a href="#"><button type="button" class="btn btn-primary">Ver en Excel</button></a>
           </div>
         </div>
       </div>
@@ -65,8 +64,209 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jQuery-QueryBuilder/dist/js/query-builder.standalone.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+        <script src="https://cdnjs.com/libraries/bootstrap-slider"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script>
+
+        <script>
+          
+        var rules_widgets = {
+          condition: 'OR',
+          rules: [{
+            id: 'fecha_nacimiento',
+            operator: 'equal',
+            value: '1991/11/17'
+          }, {
+            id: 'cedula',
+            operator: 'less',
+            value: 10000000
+          }, {
+            id: 'genero',
+            operator: 'equal',
+            value: 'F'
+          }, {
+            id: 'is_casado',
+            operator: 'equal',
+            value: 0
+          }, {
+            id: 'is_trabaja',
+            operator: 'equal',
+            value: 0
+          }, {
+            id: 'is_vive_padres',
+            operator: 'equal',
+            value: 0
+          }, {
+            id: 'have_hermanos',
+            operator: 'equal',
+            value: 0
+          }, {
+            id: 'profesion',
+            operator: 'equal',
+            value: 'Actor/Actriz'
+          }, {
+            id: 'tipo_test',
+            operator: 'equal',
+            value: 'ayudador'
+          }]
+        };
+
+        // Fix for Bootstrap Datepicker
+        $('#builder-widgets').on('afterUpdateRuleValue.queryBuilder', function(e, rule) {
+          if (rule.filter.plugin === 'datepicker') {
+            rule.$el.find('.rule-value-container input').datepicker('update');
+          }
+        });
+
+        $('#builder-widgets').queryBuilder({
+          plugins: ['bt-tooltip-errors'],
+
+          filters: [{
+            id: 'fecha_nacimiento',
+            label: 'Fecha de Nacimiento',
+            type: 'date',
+            validation: {
+              format: 'YYYY/MM/DD'
+            },
+            plugin: 'datepicker',
+            plugin_config: {
+              format: 'yyyy/mm/dd',
+              todayBtn: 'linked',
+              todayHighlight: true,
+              autoclose: true
+            },
+            operators: ['equal', 'not_equal', 'less', 'greater', 'greater']
+          }, {
+            id: 'cedula',
+            label: 'Cédula',
+            type: 'integer',
+            operators: ['equal', 'not_equal', 'less', 'greater', 'greater']
+          }, {
+            id: 'genero',
+            label: 'Género',
+            type: 'string',
+            input: 'radio',
+            values: {
+              'F': 'F',
+              'M': 'M'
+            },
+            operators: ['equal', 'not_equal']
+          }, {
+            id: 'is_casado',
+            label: '¿Está Casado?',
+            type: 'boolean',
+            input: 'radio',
+            values: {
+              0: 'Si',
+              1: 'No'
+            },
+              operators: ['equal']
+          }, {
+            id: 'is_trabaja',
+            label: '¿Está trabajando?',
+            type: 'boolean',
+            input: 'radio',
+            values: {
+              0: 'Si',
+              1: 'No'
+            },
+              operators: ['equal']
+          }, {
+            id: 'is_vive_padres',
+            label: '¿Vive con los padres?',
+            type: 'boolean',
+            input: 'radio',
+            values: {
+              0: 'Si',
+              1: 'No'
+            },
+              operators: ['equal']
+          }, {
+            id: 'have_hermanos',
+            label: '¿Tiene hermanos?',
+            type: 'boolean',
+            input: 'radio',
+            values: {
+              0: 'Si',
+              1: 'No'
+            },
+              operators: ['equal']
+          }, {
+              id: 'profesion',
+              label: 'Profesión',
+              type: 'string',
+              input: 'select',
+              values: {
+                'Actor/Actriz':'Actor/Actriz',
+                'Arquitecto':'Arquitecto',
+                'Albañil':'Albañil',
+                'Empresario':'Empresario',
+                'Dentista':'Dentista',
+                'Médico/a':'Médico/a',
+                'Electricista':'Electricista',
+                'Ingeniero/a':'Ingeniero/a',
+                'Peluquero/a':'Peluquero/a',
+                'Periodista':'Periodista',
+                'Ama de casa':'Ama de casa',
+                'Abogado/a':'Abogado/a',
+                'Mecánico/a':'Mecánico/a',
+                'Enfermero/a':'Enfermero/a',
+                'Político':'Político',
+                'Profesor/a':'Profesor/a',
+                'Programador':'Programador',
+                'Deportista':'Deportista',
+                'Escritor':'Escritor'
+              },
+              operators: ['equal']
+            }, {
+              id: 'tipo_test',
+              label: 'Tipo de test',
+              type: 'string',
+              input: 'select',
+              values: {
+                'ayudador':'Ayudador',
+                'artista':'Artista',
+                'triunfador':'Triunfador',
+                'pensador':'Pensador',
+                'leal':'Leal',
+                'entusiasta':'Entusiasta',
+                'protector':'Protector',
+                'reformador':'reformador',
+                'pacifico':'Pacífico'
+              },
+              operators: ['equal']
+            }],
+
+          rules: rules_widgets
+        });
+
+          $('#reset').on('click', function() {
+            $('#builder-widgets').queryBuilder('reset');
+          });
+
+          $('#set').on('click', function() {
+            $('#builder-widgets').queryBuilder('setRules', rules_widgets);
+          });
+
+          $('#get').on('click', function() {
+            var result = $('#builder-widgets').queryBuilder('getRules');
+            
+            if (!$.isEmptyObject(result)) {
+              alert(JSON.stringify(result, null, 2));
+            }
+          });
+        </script>
   </body>
 </html>
