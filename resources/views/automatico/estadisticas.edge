@@ -9,6 +9,7 @@
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jQuery-QueryBuilder/dist/css/query-builder.default.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.css">
     <link rel="stylesheet" href="/index.css">
     <title>Estadísticas</title>
 
@@ -52,6 +53,76 @@
         <button type="button" class="btn btn-primary" id="set">Set</button>
         <button type="button" class="btn btn-primary" id="reset">Reset</button>
 
+        <table id="table"
+       data-search="true"
+       data-show-refresh="true"
+       data-show-toggle="true"
+       data-show-columns="true"
+       data-pagination="true"
+       data-page-list="[5, 10, 20]" class="tableCubo"
+       >
+
+        <thead>
+        <tr>
+            <th scope="col"
+                data-field="total"
+                data-sortable="true"
+                data-align="center"
+                data-halign="center"
+            >Total</th>
+            <th scope="col"
+                data-field="fecha_nacimiento"
+                data-sortable="true"
+                data-align="center"
+                data-halign="center"
+            >Fecha nacimiento</th>
+            <th scope="col"
+                data-field="genero"
+                data-sortable="true"
+                data-align="center"
+                data-halign="center"
+            >Genero</th>
+            <th scope="col"
+                data-field="is_casado"
+                data-sortable="true"
+                data-align="center"
+                data-halign="center"
+            >Esta o no casado</th>
+            <th scope="col"
+                data-field="is_trabaja"
+                data-sortable="true"
+                data-align="center"
+                data-halign="center"
+            >Esta o no trabajando</th>
+            <th scope="col"
+                data-field="is_vive_padres"
+                data-sortable="true"
+                data-align="center"
+                data-halign="center"
+            >Esta o no viviendo con los padres</th>
+            <th scope="col"
+                data-field="have_hermanos"
+                data-sortable="true"
+                data-align="center"
+                data-halign="center"
+            >Tiene o no hermanos</th>
+            <th scope="col"
+                data-field="profesion"
+                data-sortable="true"
+                data-align="center"
+                data-halign="center"
+            >Profesion</th>
+            <th scope="col"
+                data-field="tipo_test"
+                data-sortable="true"
+                data-align="center"
+                data-halign="center"
+            >Resultado del test</th>
+        </tr>
+
+        </thead>
+    </table>
+
         </div>
         <div class="row">
           <div class="col-4">
@@ -79,8 +150,15 @@
         <script src="https://cdnjs.com/libraries/bootstrap-slider"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
 
         <script>
+
+        $( document ).ready(function() {
+          //$('.form-control').hide();
+          //$('.rule-calue-container').hide();
+        });
           
         var rules_widgets = {
           condition: 'OR',
@@ -262,11 +340,39 @@
 
           $('#get').on('click', function() {
             var result = $('#builder-widgets').queryBuilder('getRules');
-            
-            if (!$.isEmptyObject(result)) {
-              alert(JSON.stringify(result, null, 2));
-            }
+            result = result.rules
+            var obj = JSON.stringify(result);
+            console.log(obj)
+            getCube(obj);
+
           });
+
+        function getCube(rules)
+        {
+            $.ajax({
+                url: "http://localhost:3333/show/cube",	
+                type: 'POST',
+                data: rules,
+                dataType: 'JSON',
+                headers: {
+                  "accept": "application/json",
+                  "Access-Control-Allow-Origin": "*",
+                  "Access-Control-Allow-Credentials": "true"
+                },
+                success: function (data)
+                {
+                    console.log("respuesta", data);
+                    $('.tableCubo').bootstrapTable({
+                        data: entry
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.log(error)
+                    swal("Error", "No se pudo leer el cubo", "error");
+                }
+            });
+        }
+
         </script>
   </body>
 </html>

@@ -333,10 +333,10 @@
               userGlobal = data;
               
               if(data.nuevo){
-                swal("Bien", "Has sido registrado", "success");
+                //swal("Bien", "Has sido registrado", "success");
                 window.location.href = "/manual/start/?id_user=" + data.user.id;
               } else {
-                swal("Bien", "Ya has completado el test", "success");
+                //swal("Bien", "Ya has completado el test", "success");
                 window.location.href = "/testFinalizado?id_user="+ data.user.id;
               }
               
